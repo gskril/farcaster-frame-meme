@@ -10,9 +10,7 @@ export function generateFarcasterFrame(image: string, choice: number) {
     <head>
       <meta property="fc:frame" content="vNext" />
       <meta property="fc:frame:image" content="${image}" />
-      <meta property="fc:frame:post_url" content="${
-        process.env.BASE_URL
-      }/api/post" />
+      <meta property="fc:frame:post_url" content="${BASE_URL}/api/post" />
 
       ${
         choice === 2
