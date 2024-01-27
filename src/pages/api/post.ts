@@ -1,7 +1,6 @@
-import { BASE_URL } from '@/utils'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { generateFarcasterFrame } from '@/frame'
-import { validateMessage } from '@/farcaster'
+
+import { BASE_URL, generateFarcasterFrame, validateMessage } from '@/utils'
 
 export default async function handler(
   req: NextApiRequest,
