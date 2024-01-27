@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { BASE_URL, generateFarcasterFrame, validateMessage } from '@/utils'
+import { BASE_URL, generateFarcasterFrame } from '@/utils'
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,14 +24,6 @@ export default async function handler(
     trustedData: {
       messageBytes: string
     }
-  }
-
-  const isMessageValid = await validateMessage(
-    signedMessage.trustedData.messageBytes
-  )
-
-  if (!isMessageValid) {
-    return res.status(400).json({ error: 'Invalid message' })
   }
 
   const choice = signedMessage.untrustedData.buttonIndex

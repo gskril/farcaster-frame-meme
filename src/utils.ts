@@ -1,5 +1,3 @@
-import { getSSLHubRpcClient, Message } from '@farcaster/hub-nodejs'
-
 export const BASE_URL = process.env.BASE_URL
 
 // generate an html page with the relevant opengraph tags
@@ -23,14 +21,4 @@ export function generateFarcasterFrame(image: string, choice: number) {
     </body>
     </html>
   `
-}
-
-export async function validateMessage(messageBytes: string) {
-  const client = getSSLHubRpcClient('nemes.farcaster.xyz:2283')
-  const hubMessage = Message.decode(Buffer.from(messageBytes, 'hex'))
-  const res = await client.validateMessage(hubMessage)
-
-  if (res.isOk() && res.value.valid) {
-    return res.value.valid
-  }
 }
