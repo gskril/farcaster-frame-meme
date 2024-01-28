@@ -21,17 +21,21 @@ export default async function handler(
       buttonIndex: number
       castId: { fid: number; hash: string }
     }
-    trustedData: {
+    trustedData?: {
       messageBytes: string
     }
   }
 
-  const isMessageValid = await validateMessage(
-    signedMessage.trustedData.messageBytes
-  )
+  // `trustedData` doesn't get returned by the Warpcast embed debugger, but we should validate it if it's there
+  // This if statement should probs be removed in prod
+  if (signedMessage.trustedData) {
+    const isMessageValid = await validateMessage(
+      signedMessage.trustedData.messageBytes
+    )
 
-  if (!isMessageValid) {
-    return res.status(400).json({ error: 'Invalid message' })
+    if (!isMessageValid) {
+      return res.status(400).json({ error: 'Invalid message' })
+    }
   }
 
   const choice = signedMessage.untrustedData.buttonIndex
