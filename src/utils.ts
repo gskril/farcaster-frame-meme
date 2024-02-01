@@ -26,7 +26,7 @@ export function generateFarcasterFrame(image: string, choice: number) {
 }
 
 export async function validateMessage(messageBytes: string) {
-  const client = getSSLHubRpcClient('https://nemes.farcaster.xyz:2283', {
+  const client = getSSLHubRpcClient('nemes.farcaster.xyz:2283', {
     debug: true,
   })
 
