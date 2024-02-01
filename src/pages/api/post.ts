@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { BASE_URL, generateFarcasterFrame, validateMessage } from '@/utils'
+import { BASE_URL, generateFarcasterFrame } from '@/utils'
+import { validateMessage } from '@/validate'
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,16 +27,12 @@ export default async function handler(
     }
   }
 
-  // `trustedData` doesn't get returned by the Warpcast embed debugger, but we should validate it if it's there
-  // This if statement should probs be removed in prod
-  if (signedMessage.trustedData) {
-    const isMessageValid = await validateMessage(
-      signedMessage.trustedData.messageBytes
-    )
+  const isMessageValid = await validateMessage(
+    signedMessage.trustedData?.messageBytes
+  )
 
-    if (!isMessageValid) {
-      return res.status(400).json({ error: 'Invalid message' })
-    }
+  if (!isMessageValid) {
+    return res.status(400).json({ error: 'Invalid message' })
   }
 
   const choice = signedMessage.untrustedData.buttonIndex
