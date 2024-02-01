@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@farcaster/hub-nodejs": "^0.10.21",
     "@farcaster/hub-web": "^0.7.3",
     "next": "14.1.0",
     "react": "^18",

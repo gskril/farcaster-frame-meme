@@ -1,4 +1,4 @@
-import { getHubRpcClient, Message } from '@farcaster/hub-web'
+import { getSSLHubRpcClient, Message } from '@farcaster/hub-nodejs'
 
 export const BASE_URL = process.env.BASE_URL
 
@@ -26,11 +26,16 @@ export function generateFarcasterFrame(image: string, choice: number) {
 }
 
 export async function validateMessage(messageBytes: string) {
-  const client = getHubRpcClient('https://nemes.farcaster.xyz:2283', {})
+  const client = getSSLHubRpcClient('https://nemes.farcaster.xyz:2283', {
+    debug: true,
+  })
+
   const hubMessage = Message.decode(Buffer.from(messageBytes, 'hex'))
   const res = await client.validateMessage(hubMessage)
 
   if (res.isOk() && res.value.valid) {
-    return res.value.valid
+    return true
+  } else {
+    return false
   }
 }
